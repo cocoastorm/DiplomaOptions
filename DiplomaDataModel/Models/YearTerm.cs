@@ -14,11 +14,5 @@ namespace DiplomaDataModel.Models
         public int Year { get; set; }
         public int Term { get; set; }
         public bool IsDefault { get; set; }
-        public enum Terms
-        {
-            Winter = 10,
-            SpringAndSummer = 20,
-            Fall = 30
-        }
     }
 }

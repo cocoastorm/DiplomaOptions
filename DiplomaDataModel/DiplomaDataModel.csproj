@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Choice.cs" />
+    <Compile Include="Models\DiplomaContext.cs" />
     <Compile Include="Models\Option.cs" />
     <Compile Include="Models\YearTerm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

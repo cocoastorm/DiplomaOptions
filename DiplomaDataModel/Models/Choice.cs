@@ -14,11 +14,12 @@ namespace DiplomaDataModel.Models
         public int ChoiceId { get; set; }
 
         [ForeignKey("YearTermId")]
-        public int YearTermId { get; set; }
+        public int YearTerm { get; set; }
+        public YearTerm YearTermId { get; set; }
 
         [StringLength(9,
         ErrorMessage = "The {0} must be between {2} and {1} characters.")]
-        public int StudentId { get; set; }
+        public string StudentId { get; set; }
 
         [StringLength(40,
         ErrorMessage = "The {0} must be between {2} and {1} characters.",

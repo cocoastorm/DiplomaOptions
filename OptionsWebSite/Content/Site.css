@@ -22,3 +22,6 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* Style error messages to be red and bold */
+.field-validation-error{ color: red; font-weight: bold; }

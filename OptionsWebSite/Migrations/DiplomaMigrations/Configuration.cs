@@ -1,6 +1,8 @@
 namespace OptionsWebSite.Migrations.DiplomaMigrations
 {
     using DiplomaDataModel.Models;
+    using Microsoft.AspNet.Identity;
+    using Models;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
@@ -70,6 +72,18 @@ namespace OptionsWebSite.Migrations.DiplomaMigrations
             };
 
             return options;
+        }
+
+        public static List<ApplicationUser> getUsers()
+        {
+            var passwordHash = new PasswordHasher();
+            var users = new List<ApplicationUser>
+            {
+                new ApplicationUser { UserName = "A00111111", Email = "a@a.a", PasswordHash = passwordHash.HashPassword("P@$$w0rd")},
+                new ApplicationUser { UserName = "A00222222", Email = "s@s.s", PasswordHash = passwordHash.HashPassword("P@$$w0rd")}
+            };
+
+            return users;
         }
     }
 }

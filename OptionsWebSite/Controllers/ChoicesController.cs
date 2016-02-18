@@ -10,7 +10,6 @@ using DiplomaDataModel.Models;
 
 namespace OptionsWebSite.Controllers
 {
-    [Authorize(Roles = "Admin, Student")]
     public class ChoicesController : Controller
     {
         private DiplomaContext db = new DiplomaContext();

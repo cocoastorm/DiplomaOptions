@@ -14,6 +14,7 @@ namespace DiplomaDataModel.Models
     {
         [Key]
         public int ChoiceId { get; set; }
+        [ScaffoldColumn(false)]
         public int YearTermId { get; set; }
         [ScaffoldColumn(false)]
         [ForeignKey("YearTermId")]
@@ -22,22 +23,24 @@ namespace DiplomaDataModel.Models
         [ReadOnly(true)]
         [StringLength(9,
         ErrorMessage = "The {0} must be between {2} and {1} characters.")]
+        [Display(Name = "Student ID")]
         public string StudentId { get; set; }
 
         [Required]
         [StringLength(40,
         ErrorMessage = "The {0} must be between {2} and {1} characters.",
         MinimumLength = 5)]
-        [Display(Name = "First Name: ")]
+        [Display(Name = "First Name ")]
         public string StudentFirstName { get; set; }
 
         [Required]
         [StringLength(40,
         ErrorMessage = "The {0} must be between {2} and {1} characters.",
         MinimumLength = 5)]
-        [Display(Name = "Last Name: ")]
+        [Display(Name = "Last Name ")]
         public string StudentLastName { get; set; }
 
+        [Display(Name = "First Choice: ")]
         [ForeignKey("FirstOption")]
         public int? FirstChoiceOptionId { get; set; }
 

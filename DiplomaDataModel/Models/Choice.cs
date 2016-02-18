@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DiplomaDataModel.Models.CustomValidations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -10,10 +11,13 @@ using System.Web.Mvc;
 
 namespace DiplomaDataModel.Models
 {
+    [OptionsUnique()]
     public class Choice
     {
         [Key]
         public int ChoiceId { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
         [ScaffoldColumn(false)]
         public int YearTermId { get; set; }
         [ScaffoldColumn(false)]
@@ -21,8 +25,7 @@ namespace DiplomaDataModel.Models
         public YearTerm YearTerm { get; set; }
 
         [ReadOnly(true)]
-        [StringLength(9,
-        ErrorMessage = "The {0} must be between {2} and {1} characters.")]
+        [RegularExpression(@"^[Aa]00[0-9]{6}$", ErrorMessage = "Invalid student ID format")]
         [Display(Name = "Student ID")]
         public string StudentId { get; set; }
 

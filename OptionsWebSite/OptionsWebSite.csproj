@@ -219,10 +219,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\DiplomaOptions.mdf" />
-    <Content Include="App_Data\DiplomaOptions_log.ldf">
-      <DependentUpon>DiplomaOptions.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Docs\readme.txt" />
@@ -315,7 +311,9 @@
       <Name>DiplomaDataModel</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\ApplicationMigrations\201602180148081_InitialCreate.resx">
       <DependentUpon>201602180148081_InitialCreate.cs</DependentUpon>

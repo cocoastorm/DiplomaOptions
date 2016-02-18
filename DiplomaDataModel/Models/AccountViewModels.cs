@@ -7,6 +7,7 @@ namespace OptionsWebSite.Models
     {
         public string Email { get; set; }
         [Required]
+        [RegularExpression(@"^[Aa]00[0-9]{6}$", ErrorMessage = "Invalid student ID format")]
         [Display(Name = "Username")]
         public string Username { get; set; }
     }

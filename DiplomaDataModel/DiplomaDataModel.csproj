@@ -119,6 +119,7 @@
   <ItemGroup>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Choice.cs" />
+    <Compile Include="Models\CustomValidations\OptionsUnique.cs" />
     <Compile Include="Models\DiplomaContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

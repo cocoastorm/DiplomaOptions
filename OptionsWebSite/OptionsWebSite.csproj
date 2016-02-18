@@ -203,6 +203,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\ApplicationMigrations\201602180148081_InitialCreate.cs" />
+    <Compile Include="Migrations\ApplicationMigrations\201602180148081_InitialCreate.Designer.cs">
+      <DependentUpon>201602180148081_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ApplicationMigrations\Configuration.cs" />
     <Compile Include="Migrations\DiplomaMigrations\201602180108183_InitialCreate.cs" />
     <Compile Include="Migrations\DiplomaMigrations\201602180108183_InitialCreate.Designer.cs">
       <DependentUpon>201602180108183_InitialCreate.cs</DependentUpon>
@@ -302,6 +307,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\ApplicationMigrations\201602180148081_InitialCreate.resx">
+      <DependentUpon>201602180148081_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\DiplomaMigrations\201602180108183_InitialCreate.resx">
       <DependentUpon>201602180108183_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>

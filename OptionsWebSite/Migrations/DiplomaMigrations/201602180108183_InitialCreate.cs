@@ -12,10 +12,10 @@ namespace OptionsWebSite.Migrations.DiplomaMigrations
                 c => new
                     {
                         ChoiceId = c.Int(nullable: false, identity: true),
-                        YearTerm = c.Int(nullable: false),
+                        YearTermId = c.Int(nullable: false),
                         StudentId = c.String(maxLength: 9),
-                        StudentFirstName = c.String(maxLength: 40),
-                        StudentLastName = c.String(maxLength: 40),
+                        StudentFirstName = c.String(nullable: false, maxLength: 40),
+                        StudentLastName = c.String(nullable: false, maxLength: 40),
                         FirstChoiceOptionId = c.Int(),
                         SecondChoiceOptionId = c.Int(),
                         ThirdChoiceOptionId = c.Int(),
@@ -27,8 +27,8 @@ namespace OptionsWebSite.Migrations.DiplomaMigrations
                 .ForeignKey("dbo.Options", t => t.FourthChoiceOptionId)
                 .ForeignKey("dbo.Options", t => t.SecondChoiceOptionId)
                 .ForeignKey("dbo.Options", t => t.ThirdChoiceOptionId)
-                .ForeignKey("dbo.YearTerms", t => t.YearTerm, cascadeDelete: true)
-                .Index(t => t.YearTerm)
+                .ForeignKey("dbo.YearTerms", t => t.YearTermId, cascadeDelete: true)
+                .Index(t => t.YearTermId)
                 .Index(t => t.FirstChoiceOptionId)
                 .Index(t => t.SecondChoiceOptionId)
                 .Index(t => t.ThirdChoiceOptionId)
@@ -59,7 +59,7 @@ namespace OptionsWebSite.Migrations.DiplomaMigrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.Choices", "YearTerm", "dbo.YearTerms");
+            DropForeignKey("dbo.Choices", "YearTermId", "dbo.YearTerms");
             DropForeignKey("dbo.Choices", "ThirdChoiceOptionId", "dbo.Options");
             DropForeignKey("dbo.Choices", "SecondChoiceOptionId", "dbo.Options");
             DropForeignKey("dbo.Choices", "FourthChoiceOptionId", "dbo.Options");
@@ -68,7 +68,7 @@ namespace OptionsWebSite.Migrations.DiplomaMigrations
             DropIndex("dbo.Choices", new[] { "ThirdChoiceOptionId" });
             DropIndex("dbo.Choices", new[] { "SecondChoiceOptionId" });
             DropIndex("dbo.Choices", new[] { "FirstChoiceOptionId" });
-            DropIndex("dbo.Choices", new[] { "YearTerm" });
+            DropIndex("dbo.Choices", new[] { "YearTermId" });
             DropTable("dbo.YearTerms");
             DropTable("dbo.Options");
             DropTable("dbo.Choices");

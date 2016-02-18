@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace DiplomaDataModel.Models
 {
@@ -13,22 +15,27 @@ namespace DiplomaDataModel.Models
         [Key]
         public int ChoiceId { get; set; }
 
+        public int YearTermId { get; set; }
         [ForeignKey("YearTermId")]
-        public int YearTerm { get; set; }
-        public YearTerm YearTermId { get; set; }
+        public YearTerm YearTerm { get; set; }
 
+        [ReadOnly(true)]
         [StringLength(9,
         ErrorMessage = "The {0} must be between {2} and {1} characters.")]
         public string StudentId { get; set; }
 
+        [Required]
         [StringLength(40,
         ErrorMessage = "The {0} must be between {2} and {1} characters.",
         MinimumLength = 5)]
+        [Display(Name = "First Name: ")]
         public string StudentFirstName { get; set; }
 
+        [Required]
         [StringLength(40,
         ErrorMessage = "The {0} must be between {2} and {1} characters.",
         MinimumLength = 5)]
+        [Display(Name = "Last Name: ")]
         public string StudentLastName { get; set; }
 
         [Display(Name = "First Choice: ")]
@@ -59,6 +66,18 @@ namespace DiplomaDataModel.Models
         [ForeignKey("FourthChoiceOptionId")]
         public Option FourthOption { get; set; }
 
-        public DateTime SelectionDate { get; set; }
+        private DateTime _SelectionDate = DateTime.MinValue;
+
+        [ScaffoldColumn(false)]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyy}")]
+        public DateTime SelectionDate
+        {
+            get
+            {
+                return (_SelectionDate == DateTime.MinValue) ? DateTime.Now : _SelectionDate;
+            }
+            set { _SelectionDate = value; }
+        }
     }
 }

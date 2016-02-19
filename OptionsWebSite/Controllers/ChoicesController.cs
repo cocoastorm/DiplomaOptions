@@ -42,6 +42,10 @@ namespace OptionsWebSite.Controllers
             // get only active options from the database
             var options = db.Options.Where(c => c.IsActive == true);
 
+            var studentId = User.Identity.Name;
+
+            ViewBag.StudentId = studentId;
+
             ViewBag.FirstChoiceOptionId = new SelectList(options, "OptionId", "Title");
             ViewBag.FourthChoiceOptionId = new SelectList(options, "OptionId", "Title");
             ViewBag.SecondChoiceOptionId = new SelectList(options, "OptionId", "Title");
@@ -61,13 +65,15 @@ namespace OptionsWebSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                // prevent duplicate selection for a user
-                var exists = db.Choices.Where(c => c.StudentId == choice.StudentId && c.YearTermId == choice.YearTermId);
-                if(exists.Count() > 0)
+                //prevent duplicate selection for a user
+
+               var exists = db.Choices.Where(c => c.StudentId == choice.StudentId && c.YearTermId == choice.YearTermId);
+                if (exists.Count() > 0)
                 {
                     // record already exists, return to create
                     return RedirectToAction("Create");
-                } else
+                }
+                else
                 {
                     db.Choices.Add(choice);
                     db.SaveChanges();

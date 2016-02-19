@@ -22,7 +22,6 @@ namespace DiplomaDataModel.Models
         [ForeignKey("YearTermId")]
         public YearTerm YearTerm { get; set; }
 
-        [ReadOnly(true)]
         [RegularExpression(@"^[Aa]00[0-9]{6}$", ErrorMessage = "Invalid student ID format")]
         [Display(Name = "Student ID")]
         public string StudentId { get; set; }

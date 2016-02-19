@@ -24,4 +24,4 @@ textarea {
 }
 
 /* Style error messages to be red and bold */
-.field-validation-error{ color: red; font-weight: bold; }
+.field-validation-error, .validation-summary-errors { color: red; font-weight: bold; }

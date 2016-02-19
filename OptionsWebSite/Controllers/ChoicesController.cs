@@ -14,6 +14,7 @@ namespace OptionsWebSite.Controllers
     {
         private DiplomaContext db = new DiplomaContext();
 
+        [Authorize(Roles = "Admin, Student")]
         // GET: Choices
         public ActionResult Index()
         {
@@ -21,6 +22,7 @@ namespace OptionsWebSite.Controllers
             return View(choices.ToList());
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Choices/Details/5
         public ActionResult Details(int? id)
         {
@@ -36,6 +38,7 @@ namespace OptionsWebSite.Controllers
             return View(choice);
         }
 
+        [Authorize(Roles = "Admin, Student")]
         // GET: Choices/Create
         public ActionResult Create()
         {
@@ -56,6 +59,7 @@ namespace OptionsWebSite.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin, Student")]
         // POST: Choices/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -70,6 +74,10 @@ namespace OptionsWebSite.Controllers
                var exists = db.Choices.Where(c => c.StudentId == choice.StudentId && c.YearTermId == choice.YearTermId);
                 if (exists.Count() > 0)
                 {
+                    var studentId = User.Identity.Name;
+
+                    ViewBag.StudentId = studentId;
+
                     // record already exists, return to create
                     return RedirectToAction("Create");
                 }
@@ -92,6 +100,7 @@ namespace OptionsWebSite.Controllers
             return View(choice);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Choices/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -115,6 +124,7 @@ namespace OptionsWebSite.Controllers
             return View(choice);
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Choices/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -139,6 +149,7 @@ namespace OptionsWebSite.Controllers
             return View(choice);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Choices/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -154,6 +165,7 @@ namespace OptionsWebSite.Controllers
             return View(choice);
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Choices/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

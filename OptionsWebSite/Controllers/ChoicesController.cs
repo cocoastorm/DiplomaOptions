@@ -114,6 +114,10 @@ namespace OptionsWebSite.Controllers
             {
                 return HttpNotFound();
             }
+
+            var StudentId = User.Identity.Name;
+            Session["StudentId"] = StudentId;
+
             var options = db.Options.Where(c => c.IsActive == true);
             ViewBag.FirstChoiceOptionId = new SelectList(options, "OptionId", "Title", choice.FirstChoiceOptionId);
             ViewBag.FourthChoiceOptionId = new SelectList(options, "OptionId", "Title", choice.FourthChoiceOptionId);

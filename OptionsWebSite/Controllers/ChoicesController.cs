@@ -14,7 +14,7 @@ namespace OptionsWebSite.Controllers
     {
         private DiplomaContext db = new DiplomaContext();
 
-        [Authorize(Roles = "Admin, Student")]
+        [Authorize(Roles = "Admin")]
         // GET: Choices
         public ActionResult Index()
         {
@@ -45,9 +45,9 @@ namespace OptionsWebSite.Controllers
             // get only active options from the database
             var options = db.Options.Where(c => c.IsActive == true);
 
-            var studentId = User.Identity.Name;
+            var StudentId = User.Identity.Name;
 
-            ViewBag.StudentId = studentId;
+            Session["StudentId"] = StudentId;
 
             ViewBag.FirstChoiceOptionId = new SelectList(options, "OptionId", "Title");
             ViewBag.FourthChoiceOptionId = new SelectList(options, "OptionId", "Title");
@@ -74,18 +74,19 @@ namespace OptionsWebSite.Controllers
                var exists = db.Choices.Where(c => c.StudentId == choice.StudentId && c.YearTermId == choice.YearTermId);
                 if (exists.Count() > 0)
                 {
-                    var studentId = User.Identity.Name;
+                    var StudentId = User.Identity.Name;
 
-                    ViewBag.StudentId = studentId;
-
+                    Session["StudentId"] = StudentId;
+                    TempData["Success"] = "false";
                     // record already exists, return to create
-                    return RedirectToAction("Create");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     db.Choices.Add(choice);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    TempData["Success"] = "true";
+                    return RedirectToAction("Index", "Home");
                 }
             }
 

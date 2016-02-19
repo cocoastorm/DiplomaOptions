@@ -10,6 +10,16 @@ namespace OptionsWebSite.Controllers
     {
         public ActionResult Index()
         {
+            if(String.Compare((String) TempData["Success"], "true", true) == 0)
+            {
+                ViewBag.Message = "Your changes were saved!";
+                TempData["Success"] = null;
+            }
+            else if(String.Compare((String)TempData["Success"], "false", true) == 0)
+            {
+                ViewBag.Message = "Error! Your changes WERE NOT saved!";
+                TempData["Success"] = null;
+            }
             return View();
         }
 

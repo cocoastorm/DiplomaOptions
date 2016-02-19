@@ -12,16 +12,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstOption.Title)
+            @Html.DisplayNameFor(model => model.FirstOption)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FourthOption.Title)
+            @Html.DisplayNameFor(model => model.SecondOption)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SecondOption.Title)
+            @Html.DisplayNameFor(model => model.ThirdOption)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ThirdOption.Title)
+            @Html.DisplayNameFor(model => model.FourthOption)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.StudentId)
@@ -41,13 +41,13 @@
             @Html.DisplayFor(modelItem => item.FirstOption.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FourthOption.Title)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.SecondOption.Title)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ThirdOption.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FourthOption.Title)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.StudentId)

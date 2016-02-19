@@ -214,6 +214,14 @@
     <Compile Include="Migrations\DiplomaMigrations\201602180108183_InitialCreate.Designer.cs">
       <DependentUpon>201602180108183_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\DiplomaMigrations\201602190116156_InitialCreate1.cs" />
+    <Compile Include="Migrations\DiplomaMigrations\201602190116156_InitialCreate1.Designer.cs">
+      <DependentUpon>201602190116156_InitialCreate1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\DiplomaMigrations\201602190119451_FixYearTerm.cs" />
+    <Compile Include="Migrations\DiplomaMigrations\201602190119451_FixYearTerm.Designer.cs">
+      <DependentUpon>201602190119451_FixYearTerm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\DiplomaMigrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -320,6 +328,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\DiplomaMigrations\201602180108183_InitialCreate.resx">
       <DependentUpon>201602180108183_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\DiplomaMigrations\201602190116156_InitialCreate1.resx">
+      <DependentUpon>201602190116156_InitialCreate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\DiplomaMigrations\201602190119451_FixYearTerm.resx">
+      <DependentUpon>201602190119451_FixYearTerm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

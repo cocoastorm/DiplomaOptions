@@ -28,7 +28,7 @@ namespace OptionsWebSite.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Choice choice = db.Choices.Find(id);
+            Choice choice = db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm).SingleOrDefault(c => c.ChoiceId == id);
             if (choice == null)
             {
                 return HttpNotFound();
@@ -140,7 +140,7 @@ namespace OptionsWebSite.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Choice choice = db.Choices.Find(id);
+            Choice choice = db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm).SingleOrDefault(c => c.ChoiceId == id);
             if (choice == null)
             {
                 return HttpNotFound();

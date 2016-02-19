@@ -14,5 +14,22 @@ namespace DiplomaDataModel.Models
         public int Year { get; set; }
         public int Term { get; set; }
         public bool IsDefault { get; set; }
+
+        public string getTermString
+        {
+            get
+            {
+                switch (this.Term)
+                {
+                    case 10:
+                        return "Winter";
+                    case 20:
+                        return "Spring/Summer";
+                    case 30:
+                        return "Fall";
+                }
+                return "unknown";
+            }
+        }
     }
 }

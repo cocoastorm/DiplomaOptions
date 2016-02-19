@@ -55,6 +55,7 @@ namespace OptionsWebSite.Controllers
             ViewBag.ThirdChoiceOptionId = new SelectList(options, "OptionId", "Title");
 
             var defaultYear = db.YearTerms.Where(y => y.IsDefault == true);
+            ViewBag.DefaultYear = defaultYear.FirstOrDefault().getTermString;
             ViewBag.YearTermId = new SelectList(defaultYear, "YearTermId", "YearTermId");
             return View();
         }
@@ -126,6 +127,7 @@ namespace OptionsWebSite.Controllers
 
             var defaultYear = db.YearTerms.Where(y => y.IsDefault == true);
             ViewBag.YearTermId = new SelectList(defaultYear, "YearTermId", "YearTermId", choice.YearTermId);
+            ViewBag.DefaultYear = defaultYear.FirstOrDefault().getTermString;
             return View(choice);
         }
 
@@ -151,6 +153,7 @@ namespace OptionsWebSite.Controllers
 
             var defaultYear = db.YearTerms.Where(y => y.IsDefault == true);
             ViewBag.YearTermId = new SelectList(defaultYear, "YearTermId", "YearTermId", choice.YearTermId);
+            ViewBag.DefaultYear = defaultYear.FirstOrDefault().getTermString;
             return View(choice);
         }
 

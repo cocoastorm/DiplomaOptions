@@ -29,14 +29,14 @@ namespace DiplomaDataModel.Models
         [Required]
         [StringLength(40,
         ErrorMessage = "The {0} must be between {2} and {1} characters.",
-        MinimumLength = 5)]
+        MinimumLength = 1)]
         [Display(Name = "First Name ")]
         public string StudentFirstName { get; set; }
 
         [Required]
         [StringLength(40,
         ErrorMessage = "The {0} must be between {2} and {1} characters.",
-        MinimumLength = 5)]
+        MinimumLength = 1)]
         [Display(Name = "Last Name ")]
         public string StudentLastName { get; set; }
 

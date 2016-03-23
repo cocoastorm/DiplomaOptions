@@ -35,11 +35,13 @@ namespace OptionsWebSite.Migrations.DiplomaMigrations
                 p => p.YearTermId,
                 getYearTerms().ToArray());
 
-            context.SaveChanges();
-
             context.Options.AddOrUpdate(
                 p => p.OptionId,
                 getOptions().ToArray());
+
+            context.Choices.AddOrUpdate(
+                p => p.ChoiceId,
+                getChoices().ToArray());
 
             context.SaveChanges();
         }
@@ -156,7 +158,7 @@ namespace OptionsWebSite.Migrations.DiplomaMigrations
                 },
                 new Choice {
                     YearTermId = 2,
-                    StudentId = "A10111111",
+                    StudentId = "A00211111",
                     StudentFirstName = "Bones",
                     StudentLastName = "Doc",
                     FirstChoiceOptionId = 2,
@@ -167,7 +169,7 @@ namespace OptionsWebSite.Migrations.DiplomaMigrations
                 },
                 new Choice {
                     YearTermId = 2,
-                    StudentId = "A10222222",
+                    StudentId = "A00232222",
                     StudentFirstName = "Lightning",
                     StudentLastName = "Farron",
                     FirstChoiceOptionId = 1,
@@ -178,7 +180,7 @@ namespace OptionsWebSite.Migrations.DiplomaMigrations
                 },
                 new Choice {
                     YearTermId = 2,
-                    StudentId = "A10333333",
+                    StudentId = "A00233333",
                     StudentFirstName = "Benjamin",
                     StudentLastName = "Cook",
                     FirstChoiceOptionId = 4,
@@ -189,7 +191,7 @@ namespace OptionsWebSite.Migrations.DiplomaMigrations
                 },
                 new Choice {
                     YearTermId = 4,
-                    StudentId = "A00333333",
+                    StudentId = "A00234333",
                     StudentFirstName = "Sarah",
                     StudentLastName = "Dinh",
                     FirstChoiceOptionId = 1,
@@ -200,7 +202,7 @@ namespace OptionsWebSite.Migrations.DiplomaMigrations
                 },
                 new Choice {
                     YearTermId = 4,
-                    StudentId = "A00444444",
+                    StudentId = "A00244444",
                     StudentFirstName = "Bob",
                     StudentLastName = "Bobbie",
                     FirstChoiceOptionId = 2,
@@ -211,7 +213,7 @@ namespace OptionsWebSite.Migrations.DiplomaMigrations
                 },
                 new Choice {
                     YearTermId = 4,
-                    StudentId = "A00555555",
+                    StudentId = "A00255555",
                     StudentFirstName = "Jason",
                     StudentLastName = "Derulo",
                     FirstChoiceOptionId = 4,
@@ -266,7 +268,7 @@ namespace OptionsWebSite.Migrations.DiplomaMigrations
                 },
                 new Choice {
                     YearTermId = 4,
-                    StudentId = "A10111111",
+                    StudentId = "A00111211",
                     StudentFirstName = "Bones",
                     StudentLastName = "Doc",
                     FirstChoiceOptionId = 2,
@@ -277,7 +279,7 @@ namespace OptionsWebSite.Migrations.DiplomaMigrations
                 },
                 new Choice {
                     YearTermId = 4,
-                    StudentId = "A10222222",
+                    StudentId = "A00224222",
                     StudentFirstName = "Hope",
                     StudentLastName = "Esthieum",
                     FirstChoiceOptionId = 1,
@@ -288,7 +290,7 @@ namespace OptionsWebSite.Migrations.DiplomaMigrations
                 },
                 new Choice {
                     YearTermId = 4,
-                    StudentId = "A10333333",
+                    StudentId = "A00334343",
                     StudentFirstName = "Benjamin",
                     StudentLastName = "Bot",
                     FirstChoiceOptionId = 4,

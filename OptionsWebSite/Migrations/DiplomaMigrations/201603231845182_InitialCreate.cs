@@ -13,7 +13,7 @@ namespace OptionsWebSite.Migrations.DiplomaMigrations
                     {
                         ChoiceId = c.Int(nullable: false, identity: true),
                         YearTermId = c.Int(nullable: false),
-                        StudentId = c.String(maxLength: 9),
+                        StudentId = c.String(),
                         StudentFirstName = c.String(nullable: false, maxLength: 40),
                         StudentLastName = c.String(nullable: false, maxLength: 40),
                         FirstChoiceOptionId = c.Int(),

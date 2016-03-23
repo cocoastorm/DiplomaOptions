@@ -12,6 +12,8 @@ namespace DiplomaDataModel.Models
         [Key]
         public int YearTermId { get; set; }
         public int Year { get; set; }
+
+        [RegularExpression("^(10|20|30)$", ErrorMessage = "Invalid Term")]
         public int Term { get; set; }
 
         [Display(Name = "Is Default")]

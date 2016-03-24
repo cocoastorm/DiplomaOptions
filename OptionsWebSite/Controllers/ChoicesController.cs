@@ -19,6 +19,24 @@ namespace OptionsWebSite.Controllers
         public ActionResult Index()
         {
             var choices = db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm);
+
+            // YearTermSelects
+            var yearterms = db.YearTerms.ToArray();
+            List<SelectListItem> yearterms_selects = new List<SelectListItem>();
+            foreach(YearTerm term in yearterms)
+            {
+                yearterms_selects.Add(new SelectListItem { Text = term.getTermString, Value = term.Term.ToString() });
+            }
+            ViewBag.YearTermSelects = yearterms_selects;
+
+            // TypeReports
+            List<SelectListItem> typereports = new List<SelectListItem>()
+            {
+                new SelectListItem {Text = "Details Report", Value = "details" },
+                new SelectListItem {Text = "Chart", Value = "chart" }
+            };
+            ViewBag.TypeReportSelects = typereports;
+
             return View(choices.ToList());
         }
 

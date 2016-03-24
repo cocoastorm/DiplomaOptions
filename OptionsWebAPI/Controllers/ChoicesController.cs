@@ -19,7 +19,8 @@ namespace OptionsWebAPI.Controllers
     {
         private DiplomaContext db = new DiplomaContext();
 
-        public JObject GetAllChoices()
+        [Route("/api/Choices/graph")]
+        public JObject graphData()
         {
             JObject optionsForAChoice = new JObject();
             JObject allChoices = new JObject();
@@ -51,6 +52,11 @@ namespace OptionsWebAPI.Controllers
             allChoices.Add("201530", choiceNum);
 
             return allChoices;
+        }
+
+        public IEnumerable<Choice> GetAllChoices()
+        {
+            return db.Choices.ToList();
         }
 
         public IHttpActionResult GetChoiceById(int id)

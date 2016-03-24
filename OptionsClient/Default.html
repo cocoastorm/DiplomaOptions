@@ -1,0 +1,75 @@
+<!doctype html>
+<html ng-app="optionsClient">
+  <head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular-route.js"></script>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Nav Tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#login" aria-controls="login" role="tab" data-toggle="tab">Login</a></li>
+          <li role="presentation"><a href="#register" aria-controls="register" role="tab" data-toggle="tab">Register</a></li>
+      </ul>
+
+      <!-- Tab Panes -->
+      <div class="tab-content" data-ng-controller="mainController">
+          <div role="tabpanel" class="tab-pane active" id="login">
+              <h2>Login</h2>
+              <form ng-submit="login()">
+                  <div class="form-group">
+                      <label for="l_username">Username:</label>
+                      <input type="text" class="control-form" id="l_username" name="l_username" />
+                  </div>
+                  <div class="form-group">
+                      <label for="l_password">Password:</label>
+                      <input type="password" class="control-form" id="l_password" name="l_password" />
+                  </div>
+                  <input type="submit" value="Login" id="loginSubmit" class="btn btn-primary" />
+              </form>
+
+              <div class="message">
+                  {{message}}
+              </div>
+          </div>
+
+          <div role="tabpanel" class="tab-pane" id="register">
+              <h2>Register</h2>
+              <form ng-submit="register()">
+                  <div class="form-group">
+                      <label for="r_email">Email:</label>
+                      <input type="email" class="control-form" id="r_email" name="r_email" />
+                  </div>
+                  <div class="form-group">
+                      <label for="r_username">Username:</label>
+                      <input type="text" class="control-form" id="r_username" name="r_username" />
+                  </div>
+                  <div class="form-group">
+                      <label for="password">Password:</label>
+                      <input type="password" class="control-form" id="r_password" name="r_password" />
+                  </div>
+                  <div class="form-group">
+                      <label for="r_cpassword">Confirm Password:</label>
+                      <input type="password" class="control-form" id="r_cpassword" name="r_cpassword" />
+                  </div>
+                  <input type="submit" value="Register" id="registerSubmit" class="btn btn-primary" />
+              </form>
+
+              <div class="message">
+                  {{message}}
+              </div>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>

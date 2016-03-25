@@ -198,6 +198,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApplicationUsersController.cs" />
     <Compile Include="Controllers\ChoicesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -206,9 +207,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\ApplicationMigrations\201602180148081_InitialCreate.cs" />
-    <Compile Include="Migrations\ApplicationMigrations\201602180148081_InitialCreate.Designer.cs">
-      <DependentUpon>201602180148081_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\ApplicationMigrations\201603251727074_InitialCreate.cs" />
+    <Compile Include="Migrations\ApplicationMigrations\201603251727074_InitialCreate.Designer.cs">
+      <DependentUpon>201603251727074_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ApplicationMigrations\Configuration.cs" />
     <Compile Include="Migrations\DiplomaMigrations\201603231845182_InitialCreate.cs" />
@@ -309,6 +310,8 @@
     <Content Include="Views\Options\Edit.cshtml" />
     <Content Include="Views\Options\Index.cshtml" />
     <Content Include="Scripts\jquery-2.2.1.min.map" />
+    <Content Include="Views\ApplicationUsers\Edit.cshtml" />
+    <Content Include="Views\ApplicationUsers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -327,8 +330,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\ApplicationMigrations\201602180148081_InitialCreate.resx">
-      <DependentUpon>201602180148081_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\ApplicationMigrations\201603251727074_InitialCreate.resx">
+      <DependentUpon>201603251727074_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\DiplomaMigrations\201603231845182_InitialCreate.resx">
       <DependentUpon>201603231845182_InitialCreate.cs</DependentUpon>

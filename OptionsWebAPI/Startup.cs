@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Owin;
 using Owin;
+using System.Web.Cors;
+using System.Threading.Tasks;
+using System.Web.Http;
 
 [assembly: OwinStartup(typeof(OptionsWebAPI.Startup))]
 

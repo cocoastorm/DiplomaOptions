@@ -17,6 +17,70 @@
     @Html.DropDownList("YearTermSelects", null, htmlAttributes: new { @class = "form-control" })
     @Html.DropDownList("TypeReportSelects", null, htmlAttributes: new { @class = "form-control" })
 </div>
+<script>
+    $(function () {
+        var graphData;
+
+        $.get("http://a2api.nguyenkhoat.com/api/Choices/graph", function (data) {
+            var dataterm = data["201530"];
+            console.log(dataterm);
+        });
+
+        $('#container').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Browser market shares January, 2015 to May, 2015'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: [{
+                    name: 'Microsoft Internet Explorer',
+                    y: 1
+                }, {
+                    name: 'Chrome',
+                    y: 2,
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Firefox',
+                    y: 4
+                }, {
+                    name: 'Safari',
+                    y: 4
+                }, {
+                    name: 'Opera',
+                    y: 7
+                }, {
+                    name: 'Proprietary or Undetectable',
+                    y: 0.2
+                }]
+            }]
+        });
+    });
+</script>
+<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
 
 <table class="table">
     <tr>

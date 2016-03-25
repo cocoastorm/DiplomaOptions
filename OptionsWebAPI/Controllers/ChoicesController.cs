@@ -1,5 +1,6 @@
 ﻿using DiplomaDataModel.Models;
 using Newtonsoft.Json.Linq;
+using OptionsWebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -14,44 +15,69 @@ using System.Web.Http.Description;
 
 namespace OptionsWebAPI.Controllers
 {
-    [EnableCors("*", "*", "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ChoicesController : ApiController
     {
         private DiplomaContext db = new DiplomaContext();
 
-        [Route("/api/Choices/graph")]
-        public JObject graphData()
+        [Route("api/Choices/graph")]
+        public GraphData GetGraphData()
         {
-            JObject optionsForAChoice = new JObject();
-            JObject allChoices = new JObject();
-            JObject choiceNum = new JObject();
-            int[] arr_choice;
-            var options = db.Options.Select(o => o.OptionId).ToArray();
+            GraphData data = new GraphData();
 
-            //Choices for YearTermID 2 - 201530
-            int?[] choice1 = db.Choices.Where(c => c.YearTermId == 2).Select(c => c.FirstChoiceOptionId).ToArray();
-            int?[] choice2 = db.Choices.Where(c => c.YearTermId == 2).Select(c => c.SecondChoiceOptionId).ToArray();
-            int?[] choice3 = db.Choices.Where(c => c.YearTermId == 2).Select(c => c.ThirdChoiceOptionId).ToArray();
-            int?[] choice4 = db.Choices.Where(c => c.YearTermId == 2).Select(c => c.FourthChoiceOptionId).ToArray();
+            var choices = db.Choices.Include(c => c.YearTermId).Include(c => c.FirstChoiceOptionId).Include(c => c.SecondChoiceOptionId).Include(c => c.ThirdChoiceOptionId).Include(c => c.FourthChoiceOptionId);
+            var yearterms = db.YearTerms.ToList();
+            var optionIds = db.Options.Select(c => c.OptionId).ToList();
 
-            //An array that contains arrays of choices
-            int?[][] choices = new int?[][] { choice1, choice2, choice3, choice4 };
+            data.OptionsTitles = db.Options.Select(c => c.Title).ToList();
+            data.ChoicesData = new List<ChoiceData>();
 
-            //Iterate through each choices: 1-4
-            for (int k = 0; k < choices.Length; k++)
+            //foreach yearterm as term
+            foreach (var term in yearterms)
             {
-                optionsForAChoice = new JObject();
-                arr_choice = new int[options.Length + 1];   //Array holder for current iteration of all choices
-                for (int j = 0; j < choices[k].Length; j++) //Iterate through individual arrays of choices, 1st 2nd 3rd 4th choices
-                    arr_choice[(int)choices[k][j]]++;  //Increment any repeating choices
-                for (int i = 1; i <= options.Length; i++)
-                    optionsForAChoice.Add("C" + (k + 1) + "_" + i.ToString(), arr_choice[i]);  //Add tags to identify each choice
+                //grab choices where c=>yeartermid == term.id
+                var TermChoices = db.Choices.Where(c => c.YearTermId == term.YearTermId);
 
-                choiceNum.Add("Choice" + (k + 1), optionsForAChoice);
+                //4 Choices... 4 Charts...
+                int count = optionIds.Count;
+                int[] ChoiceC1 = new int[count];
+                int[] ChoiceC2 = new int[count];
+                int[] ChoiceC3 = new int[count];
+                int[] ChoiceC4 = new int[count];
+
+                //foreach choice
+                foreach(var choice in TermChoices)
+                {
+                    int OptionId1 = choice.FirstChoiceOptionId ?? 0;
+                    int OptionId2 = choice.SecondChoiceOptionId ?? 0;
+                    int OptionId3 = choice.ThirdChoiceOptionId ?? 0;
+                    int OptionId4 = choice.FourthChoiceOptionId ?? 0;
+
+                    //foreach optionids as option
+                    foreach(var option in optionIds)
+                    {
+                        if (option == OptionId1)
+                            ChoiceC1[optionIds.IndexOf(option)]++;
+                        if (option == OptionId2)
+                            ChoiceC2[optionIds.IndexOf(option)]++;
+                        if (option == OptionId3)
+                            ChoiceC3[optionIds.IndexOf(option)]++;
+                        if (option == OptionId4)
+                            ChoiceC4[optionIds.IndexOf(option)]++;
+                    }
+                }
+
+                ChoiceData ChoiceData = new ChoiceData();
+                ChoiceData.YearTermId = term.YearTermId;
+                ChoiceData.FirstChoice = ChoiceC1;
+                ChoiceData.SecondChoice = ChoiceC2;
+                ChoiceData.ThirdChoice = ChoiceC3;
+                ChoiceData.FourthChoice = ChoiceC4;
+
+                data.ChoicesData.Add(ChoiceData);
             }
-            allChoices.Add("201530", choiceNum);
 
-            return allChoices;
+            return data;
         }
 
         public IEnumerable<Choice> GetAllChoices()

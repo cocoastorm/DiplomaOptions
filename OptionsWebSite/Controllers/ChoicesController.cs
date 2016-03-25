@@ -25,7 +25,7 @@ namespace OptionsWebSite.Controllers
             List<SelectListItem> yearterms_selects = new List<SelectListItem>();
             foreach(YearTerm term in yearterms)
             {
-                yearterms_selects.Add(new SelectListItem { Text = term.getTermString, Value = term.Term.ToString() });
+                yearterms_selects.Add(new SelectListItem { Text = term.getTermString, Value = term.Year.ToString() + "=" + term.Term.ToString() });
             }
             ViewBag.YearTermSelects = yearterms_selects;
 

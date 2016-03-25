@@ -38,7 +38,19 @@ optionsClient.controller('mainController', function ($scope, $http, $window, $ht
                 delete $window.sessionStorage.token;
                 $scope.message = data;
             });
-        };
+    };
+
+    $scope.choices = function () {
+        $http
+        .get('http://a2api.nguyenkhoat.com/Choices')
+        .success(function (data, status, headers, config) {
+            $scope.message = data;
+        })
+        .error(function (data, status, headers, config) {
+            $scope.message = data;
+        });
+    }
+
 });
 
 // append token to every request

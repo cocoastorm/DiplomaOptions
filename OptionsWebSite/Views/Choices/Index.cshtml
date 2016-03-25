@@ -18,7 +18,7 @@
     @Html.DropDownList("TypeReportSelects", null, htmlAttributes: new { @class = "form-control" })
 </div>
 <script>
-    $(function () {
+    $(document).ready(function () {
         var graphData;
         var optionTitles;
         var YearTermId = parseInt($("#YearTermSelects").val());
@@ -28,26 +28,41 @@
         var seriesLength;
         var array;
 
-        $.get("http://a2api.nguyenkhoat.com/api/Choices/graph", function (data) {
-            graphData = data["ChoicesData"];
-            optionsTitles = data["OptionsTitles"];
-
-            for(var i = 0; i < graphData.length; i++)
-            {
-                if(graphData[i]["YearTermId"] == YearTermId)
-                {
-                    currentYear = graphData[i];
-                    break;
-                }
-            }
-
-            // load charts
-            initChart(1);
-            initChart(2);
-            initChart(3);
-            initChart(4);
-
+        $("#YearTermSelects").change(function () {
+            getData();
         });
+
+        $("#TypeReportSelects").change(function () {
+            if($("#TypeReportSelects").val() == "chart")
+            {
+                $("#charts").removeClass("hidden");
+            }
+            if($("#TypeReportSelects").val() == "details")
+            {
+                $("#charts").addClass("hidden");
+            }
+        });
+
+        var getData = function () {
+            $.get("http://a2api.nguyenkhoat.com/api/Choices/graph", function (data) {
+                graphData = data["ChoicesData"];
+                optionsTitles = data["OptionsTitles"];
+
+                for (var i = 0; i < graphData.length; i++) {
+                    if (graphData[i]["YearTermId"] == YearTermId) {
+                        currentYear = graphData[i];
+                        break;
+                    }
+                }
+
+                // load charts
+                initChart(1);
+                initChart(2);
+                initChart(3);
+                initChart(4);
+
+            });
+        }
 
         var initChart = function (chartNum) {
             var array;
@@ -114,10 +129,13 @@
                 }]
             });
         };
+
+        getData();
     });
+
 </script>
 
-<div class="container">
+<div id="charts" class="container hidden">
     <div class="row">
         <div class="col-md-6" id="chart1" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
         <div class="col-md-6" id="chart2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>

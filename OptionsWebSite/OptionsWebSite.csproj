@@ -311,6 +311,7 @@
     <Content Include="Views\Options\Edit.cshtml" />
     <Content Include="Views\Options\Index.cshtml" />
     <Content Include="Scripts\jquery-2.2.1.min.map" />
+    <Content Include="Views\Choices\_IndexPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

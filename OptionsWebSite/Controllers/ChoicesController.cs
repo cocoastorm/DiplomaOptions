@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DiplomaDataModel.Models;
+using System.Threading.Tasks;
 
 namespace OptionsWebSite.Controllers
 {
@@ -18,8 +19,6 @@ namespace OptionsWebSite.Controllers
         // GET: Choices
         public ActionResult Index()
         {
-            var choices = db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm);
-
             // YearTermSelects
             var yearterms = db.YearTerms.ToArray();
             var yearterms_default = db.YearTerms.Where(c => c.IsDefault == true).First();
@@ -45,7 +44,17 @@ namespace OptionsWebSite.Controllers
             };
             ViewBag.TypeReportSelects = typereports;
 
-            return View(choices.ToList());
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult GetChoices(string YearTermId)
+        {
+            var TermId = int.Parse(YearTermId);
+            var choices = db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).
+                Include(c => c.YearTerm)
+                .Where(c => c.YearTermId == TermId);
+            return PartialView("_IndexPartial", choices.ToList());
         }
 
         [Authorize(Roles = "Admin")]

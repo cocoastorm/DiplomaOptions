@@ -31,33 +31,57 @@
         $.get("http://a2api.nguyenkhoat.com/api/Choices/graph", function (data) {
             graphData = data["ChoicesData"];
             optionsTitles = data["OptionsTitles"];
+
             for(var i = 0; i < graphData.length; i++)
             {
                 if(graphData[i]["YearTermId"] == YearTermId)
                 {
                     currentYear = graphData[i];
-                    array = graphData[i]["FirstChoice"];
                     break;
                 }
+            }
+
+            // load charts
+            initChart(1);
+            initChart(2);
+            initChart(3);
+            initChart(4);
+
+        });
+
+        var initChart = function (chartNum) {
+            var array;
+
+            if (chartNum == 1) {
+                array = currentYear["FirstChoice"];
+            }
+            else if (chartNum == 2) {
+                array = currentYear["SecondChoice"];
+            }
+            else if (chartNum == 3) {
+                array = currentYear["ThirdChoice"];
+            }
+            else if (chartNum == 4) {
+                array = currentYear["FourthChoice"];
             }
 
             series = []
             seriesLength = optionsTitles.length;
 
-
-            for(var i = 0; i < seriesLength; i++)
-            {
+            for (var i = 0; i < seriesLength; i++) {
                 series.push(
                     {
                         name: optionsTitles[i],
                         y: array[i]
                     });
             }
-            getGraph();
-        });
 
-        var getGraph = function(){
-            $('#choice1').highcharts({
+            startGraph(chartNum);
+        }
+
+        var startGraph = function (chartNum) {
+            var divId = "#chart" + chartNum;
+            $(divId).highcharts({
                 chart: {
                     plotBackgroundColor: null,
                     plotBorderWidth: null,
@@ -92,7 +116,18 @@
         };
     });
 </script>
-<div id="choice1" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6" id="chart1" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+        <div class="col-md-6" id="chart2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6" id="chart3" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+        <div class="col-md-6" id="chart4" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+    </div>
+</div>
 
 <table class="table">
     <tr>

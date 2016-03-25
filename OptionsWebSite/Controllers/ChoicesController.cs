@@ -22,10 +22,18 @@ namespace OptionsWebSite.Controllers
 
             // YearTermSelects
             var yearterms = db.YearTerms.ToArray();
+            var yearterms_default = db.YearTerms.Where(c => c.IsDefault == true).First();
             List<SelectListItem> yearterms_selects = new List<SelectListItem>();
             foreach(YearTerm term in yearterms)
             {
-                yearterms_selects.Add(new SelectListItem { Text = term.getTermString, Value = term.Year.ToString() + "=" + term.Term.ToString() });
+                if (!term.IsDefault)
+                {
+                    yearterms_selects.Add(new SelectListItem { Text = term.Year.ToString() + " - " + term.getTermString, Value = term.Year.ToString() + "-" + term.Term.ToString(), Selected = false});
+                }
+                else
+                {
+                    yearterms_selects.Add(new SelectListItem { Text = term.Year.ToString() + " - " + term.getTermString, Value = term.Year.ToString() + "-" + term.Term.ToString(), Selected = true });
+                }
             }
             ViewBag.YearTermSelects = yearterms_selects;
 

@@ -69,6 +69,8 @@ namespace OptionsWebAPI.Controllers
 
                 ChoiceData ChoiceData = new ChoiceData();
                 ChoiceData.YearTermId = term.YearTermId;
+                ChoiceData.Term = term.Term;
+                ChoiceData.Year = term.Year;
                 ChoiceData.FirstChoice = ChoiceC1;
                 ChoiceData.SecondChoice = ChoiceC2;
                 ChoiceData.ThirdChoice = ChoiceC3;

@@ -8,6 +8,8 @@ namespace OptionsWebAPI.Models
     public class ChoiceData
     {
         public int YearTermId { get; set; }
+        public int Term { get; set; }
+        public int Year { get; set; }
         public int[] FirstChoice { get; set; }
         public int[] SecondChoice { get; set; }
         public int[] ThirdChoice { get; set; }

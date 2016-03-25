@@ -20,66 +20,76 @@
 <script>
     $(function () {
         var graphData;
-        var YearTerm = $("#YearTermSelects").val();
-        var Year;
-        var Term;
+        var optionTitles;
+        var YearTermId = parseInt($("#YearTermSelects").val());
+        var currentYear;
+
+        var series;
+        var seriesLength;
+        var array;
 
         $.get("http://a2api.nguyenkhoat.com/api/Choices/graph", function (data) {
-            
+            graphData = data["ChoicesData"];
+            optionsTitles = data["OptionsTitles"];
+            for(var i = 0; i < graphData.length; i++)
+            {
+                if(graphData[i]["YearTermId"] == YearTermId)
+                {
+                    currentYear = graphData[i];
+                    array = graphData[i]["FirstChoice"];
+                    break;
+                }
+            }
+
+            series = []
+            seriesLength = optionsTitles.length;
+
+
+            for(var i = 0; i < seriesLength; i++)
+            {
+                series.push(
+                    {
+                        name: optionsTitles[i],
+                        y: array[i]
+                    });
+            }
+            getGraph();
         });
 
-        $('#choice1').highcharts({
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-                text: 'Browser market shares January, 2015 to May, 2015'
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                        style: {
-                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+        var getGraph = function(){
+            $('#choice1').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Browser market shares January, 2015 to May, 2015'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
                         }
                     }
-                }
-            },
-            series: [{
-                name: 'Brands',
-                colorByPoint: true,
-                data: [{
-                    name: 'Microsoft Internet Explorer',
-                    y: 1
-                }, {
-                    name: 'Chrome',
-                    y: 2,
-                    sliced: true,
-                    selected: true
-                }, {
-                    name: 'Firefox',
-                    y: 4
-                }, {
-                    name: 'Safari',
-                    y: 4
-                }, {
-                    name: 'Opera',
-                    y: 7
-                }, {
-                    name: 'Proprietary or Undetectable',
-                    y: 0.2
+                },
+                series: [{
+                    name: 'Brands',
+                    colorByPoint: true,
+                    data: series
                 }]
-            }]
-        });
+            });
+        };
     });
 </script>
 <div id="choice1" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>

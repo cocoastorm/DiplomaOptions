@@ -28,11 +28,11 @@ namespace OptionsWebSite.Controllers
             {
                 if (!term.IsDefault)
                 {
-                    yearterms_selects.Add(new SelectListItem { Text = term.Year.ToString() + " - " + term.getTermString, Value = term.Year.ToString() + "-" + term.Term.ToString(), Selected = false});
+                    yearterms_selects.Add(new SelectListItem { Text = term.Year.ToString() + " - " + term.getTermString, Value = term.YearTermId.ToString(), Selected = false});
                 }
                 else
                 {
-                    yearterms_selects.Add(new SelectListItem { Text = term.Year.ToString() + " - " + term.getTermString, Value = term.Year.ToString() + "-" + term.Term.ToString(), Selected = true });
+                    yearterms_selects.Add(new SelectListItem { Text = term.Year.ToString() + " - " + term.getTermString, Value = term.YearTermId.ToString(), Selected = true });
                 }
             }
             ViewBag.YearTermSelects = yearterms_selects;

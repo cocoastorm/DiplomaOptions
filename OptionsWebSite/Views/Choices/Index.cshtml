@@ -1,11 +1,137 @@
 ﻿@model IEnumerable<DiplomaDataModel.Models.Choice>
 
+@section Scripts
+{
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>*@
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var graphData;
+            var optionTitles;
+            var YearTermId = parseInt($("#YearTermSelects").val());
+            var currentYear;
+
+            var series;
+            var seriesLength;
+            var array;
+
+            $("#YearTermSelects").change(function () {
+                getData();
+            });
+
+            $("#TypeReportSelects").change(function () {
+                if($("#TypeReportSelects").val() == "chart")
+                {
+                    $("#charts").removeClass("hidden");
+                }
+                if($("#TypeReportSelects").val() == "details")
+                {
+                    $("#charts").addClass("hidden");
+                }
+            });
+
+            var getData = function () {
+                $.get("http://a2api.nguyenkhoat.com/api/Choices/graph", function (data) {
+                    graphData = data["ChoicesData"];
+                    optionsTitles = data["OptionsTitles"];
+
+                    for (var i = 0; i < graphData.length; i++) {
+                        if (graphData[i]["YearTermId"] == YearTermId) {
+                            currentYear = graphData[i];
+                            break;
+                        }
+                    }
+
+                    // load charts
+                    initChart(1);
+                    initChart(2);
+                    initChart(3);
+                    initChart(4);
+
+                });
+            }
+
+            var initChart = function (chartNum) {
+                var array;
+
+                if (chartNum == 1) {
+                    array = currentYear["FirstChoice"];
+                }
+                else if (chartNum == 2) {
+                    array = currentYear["SecondChoice"];
+                }
+                else if (chartNum == 3) {
+                    array = currentYear["ThirdChoice"];
+                }
+                else if (chartNum == 4) {
+                    array = currentYear["FourthChoice"];
+                }
+
+                series = []
+                seriesLength = optionsTitles.length;
+
+                for (var i = 0; i < seriesLength; i++) {
+                    series.push(
+                        {
+                            name: optionsTitles[i],
+                            y: array[i]
+                        });
+                }
+
+                startGraph(chartNum);
+            }
+
+            var startGraph = function (chartNum) {
+                var divId = "#chart" + chartNum;
+                $(divId).highcharts({
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: 'Browser market shares January, 2015 to May, 2015'
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                style: {
+                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        name: 'Brands',
+                        colorByPoint: true,
+                        data: series
+                    }]
+                });
+            };
+
+            getData();
+        });
+
+    </script>
+}
+
 @{
     ViewBag.Title = "Option Selections";
 
     var YearTermSelects = ViewBag.YearTermSelects;
     var TypeReports = ViewBag.TypeReportSelects;
 }
+
 
 <h2>Option Selections</h2>
 
@@ -17,123 +143,7 @@
     @Html.DropDownList("YearTermSelects", null, htmlAttributes: new { @class = "form-control" })
     @Html.DropDownList("TypeReportSelects", null, htmlAttributes: new { @class = "form-control" })
 </div>
-<script>
-    $(document).ready(function () {
-        var graphData;
-        var optionTitles;
-        var YearTermId = parseInt($("#YearTermSelects").val());
-        var currentYear;
 
-        var series;
-        var seriesLength;
-        var array;
-
-        $("#YearTermSelects").change(function () {
-            getData();
-        });
-
-        $("#TypeReportSelects").change(function () {
-            if($("#TypeReportSelects").val() == "chart")
-            {
-                $("#charts").removeClass("hidden");
-            }
-            if($("#TypeReportSelects").val() == "details")
-            {
-                $("#charts").addClass("hidden");
-            }
-        });
-
-        var getData = function () {
-            $.get("http://a2api.nguyenkhoat.com/api/Choices/graph", function (data) {
-                graphData = data["ChoicesData"];
-                optionsTitles = data["OptionsTitles"];
-
-                for (var i = 0; i < graphData.length; i++) {
-                    if (graphData[i]["YearTermId"] == YearTermId) {
-                        currentYear = graphData[i];
-                        break;
-                    }
-                }
-
-                // load charts
-                initChart(1);
-                initChart(2);
-                initChart(3);
-                initChart(4);
-
-            });
-        }
-
-        var initChart = function (chartNum) {
-            var array;
-
-            if (chartNum == 1) {
-                array = currentYear["FirstChoice"];
-            }
-            else if (chartNum == 2) {
-                array = currentYear["SecondChoice"];
-            }
-            else if (chartNum == 3) {
-                array = currentYear["ThirdChoice"];
-            }
-            else if (chartNum == 4) {
-                array = currentYear["FourthChoice"];
-            }
-
-            series = []
-            seriesLength = optionsTitles.length;
-
-            for (var i = 0; i < seriesLength; i++) {
-                series.push(
-                    {
-                        name: optionsTitles[i],
-                        y: array[i]
-                    });
-            }
-
-            startGraph(chartNum);
-        }
-
-        var startGraph = function (chartNum) {
-            var divId = "#chart" + chartNum;
-            $(divId).highcharts({
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    type: 'pie'
-                },
-                title: {
-                    text: 'Browser market shares January, 2015 to May, 2015'
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: true,
-                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                            style: {
-                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                            }
-                        }
-                    }
-                },
-                series: [{
-                    name: 'Brands',
-                    colorByPoint: true,
-                    data: series
-                }]
-            });
-        };
-
-        getData();
-    });
-
-</script>
 
 <div id="charts" class="container hidden">
     <div class="row">

@@ -75,7 +75,7 @@
               <form ng-submit="choices()">
                   <div class="form-group">
                       <label for="YearTerm">Term:</label>
-                      <select id="YearTerm" name="YearTerm" ng-model="selectedYearTerm" ng-options="item.value as item.text for item in YearTerm track by item.value">
+                      <select id="YearTerm" name="YearTerm" class="form-control" ng-model="selectedYearTerm" ng-options="item.value as item.text for item in YearTerm track by item.value">
                       </select>
                   </div>
 
@@ -86,35 +86,35 @@
 
                   <div class="form-group">
                       <label for="FirstName">First Name:</label>
-                      <input value="{{FirstName}}" id="FirstName" name="FirstName" class="form-control" />
+                      <input id="FirstName" name="FirstName" class="form-control" />
                   </div>
 
                   <div class="form-group">
                       <label for="LastName">Last Name:</label>
-                      <input value="{{LastName}}" id="LastName" name="LastName" class="form-control" />
+                      <input id="LastName" name="LastName" class="form-control" />
                   </div>
 
                   <div class="form-group">
                       <label for="FirstOption">First Option:</label>
-                      <select id="FirstOption" name="FirstOption" ng-model="selectedOption" ng-options="item.value as item.text for item in Options track by item.value">
+                      <select id="FirstOption" name="FirstOption" class="form-control" ng-model="selectedOption" ng-options="item.value as item.text for item in Options track by item.value">
                       </select>
                   </div>
 
                   <div class="form-group">
                       <label for="SecondOption">Second Option:</label>
-                      <select id="SecondOption" name="SecondOption" ng-model="selectedOption" ng-options="item.value as item.text for item in Options track by item.value">
+                      <select id="SecondOption" name="SecondOption" class="form-control" ng-model="selectedOption2" ng-options="item.value as item.text for item in Options2 track by item.value">
                       </select>
                   </div>
 
                   <div class="form-group">
                       <label for="ThirdOption">Third Option:</label>
-                      <select id="ThirdOption" name="ThirdOption" ng-model="selectedOption" ng-options="item.value as item.text for item in Options track by item.value">
+                      <select id="ThirdOption" name="ThirdOption" class="form-control" ng-model="selectedOption3" ng-options="item.value as item.text for item in Options3 track by item.value">
                       </select>
                   </div>
 
                   <div class="form-group">
                       <label for="FourthOption">Fourth Option:</label>
-                      <select id="FourthOption" name="FourthOption" ng-model="selectedOption" ng-options="item.value as item.text for item in Options track by item.value">
+                      <select id="FourthOption" name="FourthOption" class="form-control" ng-model="selectedOption4" ng-options="item.value as item.text for item in Options4 track by item.value">
                       </select>
                   </div>
                   <input type="submit" value="Create Choice" id="choiceSubmit" class="btn btn-primary" />

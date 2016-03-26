@@ -32,7 +32,7 @@ optionsClient.controller('mainController', function ($scope, $http, $window, $ht
             .post('http://a2api.nguyenkhoat.com/Token', $httpParamSerializerJQLike($scope.user))
             .success(function (data, status, headers, config) {
                 $window.sessionStorage.token = data.token;
-                $window.sessionStorage.username = $("#l_username");
+                $window.sessionStorage.username = $("#l_username").val();
                 $scope.message = "Logged In";
                 $scope.showChoiceForm();
             })
@@ -43,7 +43,7 @@ optionsClient.controller('mainController', function ($scope, $http, $window, $ht
     };
 
     $scope.showChoiceForm = function () {
-        $scope.StudentId = $window.sessionStorage.username;
+        $scope.StudentId = "" + $window.sessionStorage.username;
 
         var YearTerms;
         var Options;
@@ -80,15 +80,34 @@ optionsClient.controller('mainController', function ($scope, $http, $window, $ht
                 OptionsSelects.push(TermOption);
             });
             $scope.selectedOption = OptionsSelects[0];
-            $scope.Options = OptionsSelects;
+            $scope.selectedOption2 = angular.copy($scope.selectedOption);
+            $scope.selectedOption3 = angular.copy($scope.selectedOption);
+            $scope.selectedOption4 = angular.copy($scope.selectedOption);
 
+            $scope.Options = OptionsSelects;
+            $scope.Options2 = angular.copy($scope.Options);
+            $scope.Options3 = angular.copy($scope.Options);
+            $scope.Options4 = angular.copy($scope.Options);
             $scope.ChoiceForm = true;
         })
     };
 
     $scope.choices = function () {
+        var choice = {
+            YearTermId: parseInt($("#YearTerm").val()),
+            StudentId: parseInt($("#StudentId").val()),
+            StudentFirstName: $("#FirstName").val(),
+            StudentLastName: $("#LastName").val(),
+            FirstChoiceOptionId: parseInt($("#FirstOption").val()),
+            SecondChoiceOptionId: parseInt($("#SecondOption").val()),
+            ThirdChoiceOptionId: parseInt($("#ThirdOption").val()),
+            FourthChoiceOptionId: parseInt($("#FourthOption").val())
+        };
+
+        console.log(choice);
+
         $http
-        .get('http://a2api.nguyenkhoat.com/api/Choices')
+        .post('http://a2api.nguyenkhoat.com/api/Choices', choice)
         .success(function (data, status, headers, config) {
             $scope.message = data;
         })

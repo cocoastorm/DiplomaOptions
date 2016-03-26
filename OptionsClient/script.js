@@ -1,6 +1,6 @@
 var optionsClient = angular.module("optionsClient", []);
 
-optionsClient.controller('mainController', function ($scope, $http, $window, $httpParamSerializerJQLike) {
+optionsClient.controller('mainController', function ($scope, $http, $window, $httpParamSerializerJQLike, $q) {
     // Register
     $scope.register = function () { 
         $scope.newuser = {
@@ -32,12 +32,58 @@ optionsClient.controller('mainController', function ($scope, $http, $window, $ht
             .post('http://a2api.nguyenkhoat.com/Token', $httpParamSerializerJQLike($scope.user))
             .success(function (data, status, headers, config) {
                 $window.sessionStorage.token = data.token;
+                $window.sessionStorage.username = $("#l_username");
                 $scope.message = "Logged In";
+                $scope.showChoiceForm();
             })
             .error(function (data, status, headers, config) {
                 delete $window.sessionStorage.token;
                 $scope.message = data;
             });
+    };
+
+    $scope.showChoiceForm = function () {
+        $scope.StudentId = $window.sessionStorage.username;
+
+        var YearTerms;
+        var Options;
+
+        $q.all([
+            $http.get('http://a2api.nguyenkhoat.com/api/YearTerms').then(function (response) {
+                YearTerms = response.data;
+            }),
+            $http.get('http://a2api.nguyenkhoat.com/api/Options').then(function (response) {
+                Options = response.data;
+            }),
+        ]).then(function () {
+            var YearTermOptions = [];
+            angular.forEach(YearTerms, function (term) {
+                var TermOption = {
+                    "value" : term.YearTermId,
+                    "text": term.Year + " - " + term.getTermString,
+                    "default" : term.IsDefault
+                };
+                YearTermOptions.push(TermOption);
+            });
+            angular.forEach(YearTermOptions, function (term) {
+                if (term.default)
+                    $scope.selectedYearTerm = term;
+            });
+            $scope.YearTerm = YearTermOptions;
+
+            var OptionsSelects = [];
+            angular.forEach(Options, function (o) {
+                var TermOption = {
+                    "value": o.OptionId,
+                    "text": o.Title
+                };
+                OptionsSelects.push(TermOption);
+            });
+            $scope.selectedOption = OptionsSelects[0];
+            $scope.Options = OptionsSelects;
+
+            $scope.ChoiceForm = true;
+        })
     };
 
     $scope.choices = function () {

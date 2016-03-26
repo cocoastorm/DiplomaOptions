@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using OptionsWebSite.Models;
+using System.Web.Security;
 
 namespace OptionsWebSite.Controllers
 {
@@ -156,12 +157,18 @@ namespace OptionsWebSite.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    // add new student record to to Roles table
+                    if (!Roles.RoleExists("Student"))
+                        Roles.CreateRole("Student");
+                    if (!Roles.IsUserInRole(model.Username, "Student"))
+                        Roles.AddUserToRole(model.Username, "Student");
 
                     return RedirectToAction("Index", "Home");
                 }

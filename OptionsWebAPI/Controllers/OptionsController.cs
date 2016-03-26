@@ -14,6 +14,7 @@ using System.Web.Http.Cors;
 namespace OptionsWebAPI.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [Authorize]
     public class OptionsController : ApiController
     {
         private DiplomaContext db = new DiplomaContext();

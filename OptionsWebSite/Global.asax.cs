@@ -1,5 +1,7 @@
-﻿using System;
+﻿using OptionsWebSite.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,6 +18,10 @@ namespace OptionsWebSite
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            // kill database
+            Database.SetInitializer<DbContext>(null);
+            Database.SetInitializer<ApplicationDbContext>(null);
         }
     }
 }

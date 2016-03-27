@@ -34,6 +34,9 @@ optionsClient.controller('mainController', function ($scope, $http, $window, $ht
                 $window.sessionStorage.token = data.access_token;
                 $window.sessionStorage.username = $("#l_username").val();
                 $scope.message = "Logged In";
+                
+                $("#login").toggleClass("hidden");
+                $(".nav").toggleClass("hidden");
                 $scope.showChoiceForm();
             })
             .error(function (data, status, headers, config) {
@@ -107,7 +110,7 @@ optionsClient.controller('mainController', function ($scope, $http, $window, $ht
         $http
         .post('http://a2api.nguyenkhoat.com/api/Choices', choice)
         .success(function (data, status, headers, config) {
-            $scope.message = data;
+            $scope.message = "Successfully Registered!";
         })
         .error(function (data, status, headers, config) {
             $scope.message = data;
@@ -116,7 +119,6 @@ optionsClient.controller('mainController', function ($scope, $http, $window, $ht
 
 });
 
-// DISABLED FOR NOW! NOT IMPLEMENTED IN API!!
 // append token to every request
 optionsClient.factory('authInterceptor', function ($rootScope, $q, $window) {
     return {

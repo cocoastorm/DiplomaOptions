@@ -35,16 +35,16 @@
             $("#TypeReportSelects").change(function () {
                 if($("#TypeReportSelects").val() == "chart")
                 {
-                    $("#charts").removeClass("hidden");
-                    $("#indexTable").hide();
-                    //$("#indexTable").addClass("hidden");
+                    $("#charts").toggleClass("hidden");
+                    $("#indexTable").toggleClass("hidden");
                 }
-                else if($("#TypeReportSelects").val() == "details")
-                {
+            });
+
+            $("#TypeReportSelects").change(function () {
+                if ($("#TypeReportSelects").val() == "details") {
                     getChoicesTable();
-                    $("#charts").addClass("hidden");
-                    //$("$indexTable").removeClass("hidden");
-                    $("indexTable").show();
+                    $("#charts").toggleClass("hidden");
+                    $("#indexTable").toggleClass("hidden");
                 }
             });
 
@@ -101,7 +101,8 @@
 
             var startGraph = function (chartNum) {
                 var divId = "#chart" + chartNum;
-                $(divId).highcharts({
+                var choiceString = "Choice " + chartNum;
+                var chart = $(divId).highcharts({
                     chart: {
                         plotBackgroundColor: null,
                         plotBorderWidth: null,
@@ -109,7 +110,7 @@
                         type: 'pie'
                     },
                     title: {
-                        text: 'Browser market shares January, 2015 to May, 2015'
+                        text: choiceString
                     },
                     tooltip: {
                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -128,12 +129,15 @@
                         }
                     },
                     series: [{
-                        name: 'Brands',
+                        name: 'Options',
                         colorByPoint: true,
                         data: series
                     }]
                 });
+                //console.log(chart);
             };
+
+            
 
             getData();
             getChoicesTable();

@@ -16,10 +16,12 @@ using System.Web.Http.Description;
 namespace OptionsWebAPI.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [Authorize]
     public class ChoicesController : ApiController
     {
         private DiplomaContext db = new DiplomaContext();
 
+        [AllowAnonymous]
         [Route("api/Choices/graph")]
         public GraphData GetGraphData()
         {
